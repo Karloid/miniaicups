@@ -1,9 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-// #define CONTAINER
-#define LOCAL_RUNNER
-
 #include <QString>
 #include <QVector>
 #include <QDebug>
@@ -37,7 +34,7 @@ public:
 
     int TICK_MS;                // 16 ms
     int BASE_TICK;              // every 50 ticks
-    quint64 SEED;               // qrand()
+    std::string SEED;           // from std::random_device
 
     double INERTION_FACTOR;     // 10.0
     double VISCOSITY;           // 0.25
@@ -55,6 +52,19 @@ public:
         return ins;
     }
 
+    static std::string generate_seed(uint length = 10) {
+        std::random_device dev;
+        const std::string alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567");
+        std::uniform_int_distribution<> dist(0, static_cast<int>(alphabet.length() - 1));
+
+        std::string seed;
+        while (seed.length() < length) {
+            seed += alphabet[static_cast<uint>(dist(dev))];
+        }
+
+        return seed;
+    }
+
     static Constants &initialize(const QProcessEnvironment &env) {
         Constants& c = instance();
 
@@ -70,12 +80,13 @@ public:
 
         SET_CONSTANT(GAME_WIDTH, "660", toInt);
         SET_CONSTANT(GAME_HEIGHT, "660", toInt);
-#elif defined CONTAINER
+        SET_CONSTANT(SUM_RESP_TIMEOUT, "500", toInt);
+#elif defined SERVER_RUNNER
         SET_CONSTANT(GAME_WIDTH, "990", toInt);
         SET_CONSTANT(GAME_HEIGHT, "990", toInt);
+        SET_CONSTANT(SUM_RESP_TIMEOUT, "150", toInt);
 #endif
 
-        SET_CONSTANT(SUM_RESP_TIMEOUT, "500", toInt);
         SET_CONSTANT(TICK_MS, "16", toInt);
         SET_CONSTANT(BASE_TICK, "50", toInt);
         SET_CONSTANT(INERTION_FACTOR, "10.0", toDouble);
@@ -94,10 +105,8 @@ public:
         settings.endGroup();
         settings.sync();
 
-        QTime time = QTime::currentTime();
-        uint secs = QTime(0,0,0).secsTo(QTime::currentTime());
-        qsrand(secs * 1000 + time.msec());
-        c.SEED = env.value("SEED", QString::number(qrand())).toULongLong();
+        c.SEED = env.value("SEED", "").toStdString();
+
         return c;
     }
 
@@ -117,6 +126,7 @@ private:
 const QString LOG_DIR = "/var/tmp/";
 const QString LOG_FILE = "visio_{1}.log";
 const QString DEBUG_FILE = "{1}.log";
+const QString DUMP_FILE = "{1}_dump.log";
 const QString SCORES_FILE = "scores.json";
 
 const QString MAIN_JSON_KEY = "visio";
