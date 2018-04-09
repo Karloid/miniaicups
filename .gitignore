@@ -1,5 +1,10 @@
 .DS_Store
 *.pro.user
+*.pro.user.*
+.gitignore_BACKUP_2851
+.gitignore_BASE_2851
+.gitignore_LOCAL_2851
+.gitignore_REMOTE_2851
 agario/local_runner/.qmake.stash
 agario/local_runner/main.o
 agario/local_runner/Makefile
@@ -16,10 +21,6 @@ agario/local_runner/moc_strategymodal.cpp
 agario/local_runner/moc_strategymodal.o
 agario/local_runner/ui_mainwindow.h
 agario/local_runner/ui_strategymodal.h
-agario/local_runner/local_runner.app/Contents/Info.plist
-agario/local_runner/local_runner.app/Contents/PkgInfo
-agario/local_runner/local_runner.app/Contents/MacOS/local_runner
-agario/local_runner/local_runner.app/Contents/Resources/empty.lproj
 agario/local_runner/local_runner/local_runner.o
 agario/local_runner/local_runner/Makefile
 agario/local_runner/local_runner/moc_custom.cpp
@@ -35,6 +36,10 @@ agario/local_runner/local_runner/moc_strategymodal.cpp
 agario/local_runner/local_runner/moc_strategymodal.o
 agario/local_runner/local_runner/ui_mainwindow.h
 agario/local_runner/local_runner/ui_strategymodal.h
+agario/local_runner/local_runner.app/Contents/Info.plist
+agario/local_runner/local_runner.app/Contents/PkgInfo
+agario/local_runner/local_runner.app/Contents/MacOS/local_runner
+agario/local_runner/local_runner.app/Contents/Resources/empty.lproj
 agario/local_runner/local_runner/local_runner.app/Contents/Info.plist
 agario/local_runner/local_runner/local_runner.app/Contents/PkgInfo
 agario/local_runner/local_runner/local_runner.app/Contents/MacOS/local_runner
