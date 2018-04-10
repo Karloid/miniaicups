@@ -88,6 +88,7 @@ public slots:
             return;
         }
         timerId = startTimer(Constants::instance().TICK_MS);
+        //timerId = startTimer(0);
 
         std::string seed = ui->txt_seed->text().toStdString();
         ui->btn_start_pause->setText("Пауза");
@@ -212,7 +213,10 @@ public:
         if (event->timerId() == timerId && !is_paused) {
             int tick = mechanic->tickEvent();
             ui->txt_ticks->setText(QString::number(tick));
-            this->update();
+            if (tick % 10 == 0) {
+                 this->update();
+            }
+           // this->update();
 
             if (tick % Constants::instance().BASE_TICK == 0 && tick != 0) {
                 update_score();
