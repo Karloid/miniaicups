@@ -13,7 +13,7 @@
 #include <QJsonObject>
 
 // yes ugly
-#define DEFINE_QSETTINGS(VARIABLE_NAME) QSettings VARIABLE_NAME("LocalRunner.ini", QSettings::IniFormat)
+#define DEFINE_QSETTINGS(VARIABLE_NAME) QSettings VARIABLE_NAME("/Users/fox/projects/miniaicups/agario/local_runner/build/LocalRunner.ini", QSettings::IniFormat)
 
 struct Constants
 {
