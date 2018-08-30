@@ -5,4 +5,5 @@
 .gitignore_BASE_2851
 .gitignore_LOCAL_2851
 .gitignore_REMOTE_2851
-
+*.pyc
+*.gz
