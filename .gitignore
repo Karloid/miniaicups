@@ -7,3 +7,4 @@
 .gitignore_REMOTE_2851
 *.pyc
 *.gz
+.idea/
