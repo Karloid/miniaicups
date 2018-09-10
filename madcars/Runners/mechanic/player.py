@@ -38,10 +38,13 @@ class Player(object):
                 turn = turn.get('command')
                 if turn == 'stop':
                     self.car.stop()
+                    self.printHack("0, ")
                 elif turn == 'left':
                     self.car.go_left()
+                    self.printHack("-1, ")
                 elif turn == 'right':
                     self.car.go_right()
+                    self.printHack("1, ")
                 else:
                     action = random.choice((self.car.stop, self.car.go_left, self.car.go_right))
                     action()
@@ -89,4 +92,10 @@ class Player(object):
 
     def get_lives(self):
         return self.lives
+
+    def printHack(self, param):
+        from mechanic.game import HACKS
+        if not HACKS or id == 1:
+            return
+        print(param, end='')
 

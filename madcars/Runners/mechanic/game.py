@@ -12,6 +12,8 @@ import pymunkoptions
 
 from mechanic.constants import MAX_TICK_COUNT
 
+HACKS = True
+
 pymunkoptions.options["debug"] = False
 import pymunk
 
@@ -19,6 +21,11 @@ from mechanic.game_objects.cars import Buggy, Bus, SquareWheelsBuggy
 from mechanic.game_objects.maps import PillMap, PillHubbleMap, PillHillMap, PillCarcassMap, IslandMap, IslandHoleMap
 from mechanic.match import Match
 from mechanic.player import Player
+
+
+def printHack(param):
+    if HACKS:
+        print(param, end='')
 
 
 class Game(object):
@@ -88,6 +95,7 @@ class Game(object):
 
     def next_match(self):
         map, car = next(self.matches)
+        printHack(f"\nbyMaps[{map.external_id}][{car.external_id}] = [")
         self.clear_space()
         match = Match(map, car, self.all_players, self.space)
         self.space.add(match.get_objects_for_space())
@@ -109,7 +117,6 @@ class Game(object):
 
         if self.current_match.is_match_ended():
             self.game_log.extend(self.current_match.end_match())
-
             if not all([p.is_alive() for p in self.all_players]):
                 self.game_log.append({
                     'type': "end_game",

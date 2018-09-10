@@ -138,6 +138,7 @@ class Match:
 
     def lose_callback(self, player, arbiter, space, _):
         if not self.is_rest:
+            print("]\n#"+ ("WIN" if player.id == 2 else "LOSE(((("))
             self.dead_players.add(player)
         return False
 
