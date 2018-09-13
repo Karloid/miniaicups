@@ -93,7 +93,7 @@ class Match:
                     break
             return my, enemy
         else:
-            return {p.id: p.car.fast_dump()for p in self.players}
+            return {p.id: p.car.fast_dump(visio=True) for p in self.players}
 
     def send_new_match_message(self):
         proto_map = self.map.get_proto()
@@ -140,6 +140,7 @@ class Match:
         if not self.is_rest:
             print("]\n#"+ ("WIN" if player.id == 2 else "LOSE(((("))
             self.dead_players.add(player)
+            player.car.die()
         return False
 
     def smbd_die(self):
