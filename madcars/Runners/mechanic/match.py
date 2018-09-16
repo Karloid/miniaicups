@@ -138,7 +138,9 @@ class Match:
 
     def lose_callback(self, player, arbiter, space, _):
         if not self.is_rest:
-            print("]\n#"+ ("WIN" if player.id == 2 else "LOSE(((("))
+            from mechanic.game import HACKS
+            if HACKS:
+                print("]\n#"+ ("WIN" if player.id == 2 else "LOSE(((("))
             self.dead_players.add(player)
             player.car.die()
         return False

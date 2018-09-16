@@ -12,7 +12,7 @@ import pymunkoptions
 
 from mechanic.constants import MAX_TICK_COUNT
 
-HACKS = True
+HACKS = False
 
 pymunkoptions.options["debug"] = False
 import pymunk
