@@ -70,8 +70,6 @@ class Game(object):
 
         self.game_log = []
 
-        self.next_match()
-
     @classmethod
     def parse_games(cls, games_list):
         for g in games_list:
@@ -93,11 +91,13 @@ class Game(object):
             return winner[0]
         return False
 
+    @asyncio.coroutine
     def next_match(self):
         map, car = next(self.matches)
         printHack(f"\nbyMaps[{map.external_id}][{car.external_id}] = [")
         self.clear_space()
         match = Match(map, car, self.all_players, self.space)
+        yield from match.send_new_match_message()
         self.space.add(match.get_objects_for_space())
         self.current_match = match
 
@@ -112,6 +112,9 @@ class Game(object):
 
     @asyncio.coroutine
     def tick(self):
+        if self.current_match is None:
+            yield from self.next_match()
+
         yield from self.current_match.tick(self.tick_num)
         self.space.step(0.016)
 
@@ -125,7 +128,7 @@ class Game(object):
                 self.end_game()
 
                 return 'end_game'
-            self.next_match()
+            yield from self.next_match()
 
         self.tick_num += 1
 
